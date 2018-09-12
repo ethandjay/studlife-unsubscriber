@@ -18,7 +18,7 @@ sections = [
 
 @app.route('/')
 def hello_world():
-    return render_template('hello.html', sections=sections)
+    return render_template('index.html', sections=sections)
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -39,8 +39,13 @@ def submit():
         try:
             admin.members().delete(groupKey=f'{section}@studlife.com', memberKey=f'{email}').execute()
         except:
-            alert = {'status':'warning', 'message': f'Something happened. Make sure you selected the right selection.'}
+            alert = {'status':'danger', 'message': f'Couldn\'t unsubscribe. Make sure you selected the right selection.'}
         else:
             alert = {'status':'success', 'message': f'{email} successfully unsubscribed from {section}@studlife.com'}
 
-    return render_template('hello.html', sections=sections, alert=alert)
+    return render_template('index.html', sections=sections, alert=alert)
+
+@app.errorhandler(404)
+def page_not_found(e):
+
+    return render_template('index.html', sections=sections)

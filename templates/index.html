@@ -19,9 +19,9 @@
     <form class="form-info" action='/submit' method='post'>
         <img src="{{ url_for('static',filename='assets/logo.png') }}" class="img-fluid">
         <div class="form-group">
-            <select class="form-control" name="section" placeholder='Email List'>
+            <select class="form-control" name="section" id="section" placeholder='Email List'>
                 {% for section in sections %}
-                <option value="{{ section[1] }}">{{ section[0] }}</option>
+                <option class="section_option" value="{{ section[1] }}">{{ section[0] }}</option>
                 {% endfor %}
             </select>
         <div class="form-group">
