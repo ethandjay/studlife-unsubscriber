@@ -4,14 +4,30 @@ import googleapiclient.discovery
 
 app = Flask(__name__)
 
+sections = [
+    ('Cadenza', 'cadenza-staff'),
+    ('Copy', 'copystaff'),
+    ('Design', 'design-staff'),
+    ('Forum', 'forumstaff'),
+    ('News', 'newsstaff'),
+    ('Online', 'online'),
+    ('Photo', 'photostaff'),
+    ('Scene', 'scenestaff'),
+    ('Sports', 'sportsstaff')
+]
+
 @app.route('/')
 def hello_world():
-    return render_template('hello.html')
+    return render_template('hello.html', sections=sections)
 
 @app.route('/submit', methods=['POST'])
 def submit():
     error = None
     if request.method == 'POST':
+        
+        section = request.form['section']
+        email = request.form['email']
+        
         SCOPES = ['https://www.googleapis.com/auth/admin.directory.group.member', 'https://www.googleapis.com/auth/admin.directory.group']
         SERVICE_ACCOUNT_FILE = 'studlife-unsubscriber-cc008c44e4ba.json'
 
@@ -19,11 +35,12 @@ def submit():
         delegated_credentials = credentials.with_subject('ethan.jaynes@studlife.com')
     
         admin = googleapiclient.discovery.build('admin', 'directory_v1', credentials=delegated_credentials)
-        ans = [o for o in dir(admin)]
 
-    return str(admin.groups().get(groupKey='cadenza-staff@studlife.com').execute())
-    # return str(ans)
+        try:
+            admin.members().delete(groupKey=f'{section}@studlife.com', memberKey=f'{email}').execute()
+        except:
+            alert = {'status':'warning', 'message': f'Something happened. Make sure you selected the right selection.'}
+        else:
+            alert = {'status':'success', 'message': f'{email} successfully unsubscribed from {section}@studlife.com'}
 
-@app.route('/oauth2callback')
-def callback():
-    return 'Called back'
+    return render_template('hello.html', sections=sections, alert=alert)

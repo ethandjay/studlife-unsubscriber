@@ -1,37 +1,43 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title></title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link rel="manifest" href="site.webmanifest">
-	<link rel="apple-touch-icon" href="icon.png">
-	<!-- Place favicon.ico in the root directory -->
-
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/main.css">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='style/main.css') }}">
 </head>
 
-<body>
-	<!--[if lte IE 9]>
-	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
+<body class="text-center">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
 
-	<!-- Add your site or application content here -->
-	<form action='/submit' method='post'>
-		<input name='email'>
-		<button type='submit'>Submit</button>
-	</form>
-	<script src="js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js"></script>
-	<script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js" integrity="{{JQUERY_SRI_HASH}}" crossorigin="anonymous"></script>
-	<script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-	<script src="js/plugins.js"></script>
-	<script src="js/main.js"></script>
+    <form class="form-info" action='/submit' method='post'>
+        <img src="{{ url_for('static',filename='assets/logo.png') }}" class="img-fluid">
+        <div class="form-group">
+            <select class="form-control" name="section" placeholder='Email List'>
+                {% for section in sections %}
+                <option value="{{ section[1] }}">{{ section[0] }}</option>
+                {% endfor %}
+            </select>
+        <div class="form-group">
+            <input class="form-control" name='email' placeholder="Email Address">
+        </div>
+        {% if alert %}
+        <div class="alert alert-{{ alert.status }}" role="alert">{{ alert.message }}</div>
+        {% endif %}
+        <button class="btn mb-2" type='submit'>Unsubscribe</button>
+    </form>
 
 </body>
+
+
+    <script src="{{ url_for('static',filename='js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
 
 </html>
