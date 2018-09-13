@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from google.oauth2 import service_account
 import googleapiclient.discovery
 import json
+import os
 
 app = Flask(__name__)
 
@@ -30,7 +31,7 @@ def submit():
         email = request.form['email']
         
         SCOPES = ['https://www.googleapis.com/auth/admin.directory.group.member', 'https://www.googleapis.com/auth/admin.directory.group']
-        SERVICE_ACCOUNT_JSON = json.loads(ENV['studlife-unsubscriber-cc008c44e4ba.json'])
+        SERVICE_ACCOUNT_JSON = json.loads(os.environ['studlife-unsubscriber-cc008c44e4ba.json'])
 
         credentials = service_account.Credentials.from_service_account_info(SERVICE_ACCOUNT_JSON, scopes=SCOPES)
         delegated_credentials = credentials.with_subject('ethan.jaynes@studlife.com')
