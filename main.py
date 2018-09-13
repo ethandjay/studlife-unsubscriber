@@ -41,7 +41,7 @@ def submit():
         try:
             admin.members().delete(groupKey=f'{section}@studlife.com', memberKey=f'{email}').execute()
         except:
-            alert = {'status':'danger', 'message': f'Couldn\'t unsubscribe. Make sure you selected the right selection.'}
+            alert = {'status':'danger', 'message': f'Couldn\'t unsubscribe. Make sure you selected the right section and entered in your email correctly.'}
         else:
             alert = {'status':'success', 'message': f'{email} successfully unsubscribed from {section}@studlife.com'}
 
