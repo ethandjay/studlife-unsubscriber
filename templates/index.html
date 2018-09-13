@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
-    <meta name="description" content="">
+    <title>Unsubscribe | Student Life</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='assets/favicon.gif') }}" />
+    <meta name="description" content="Unsubscribe from a Student Life Newspaper mailing list">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static',filename='style/main.css') }}">
@@ -30,7 +31,7 @@
         {% if alert %}
         <div class="alert alert-{{ alert.status }}" role="alert">{{ alert.message }}</div>
         {% endif %}
-        <button class="btn mb-2" type='submit'>Unsubscribe</button>
+        <button class="btn btn-outline-secondary mb-2" type='submit'>Unsubscribe</button>
     </form>
 
 </body>
