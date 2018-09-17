@@ -12,7 +12,7 @@ sections = [
     ('Design', 'design-staff'),
     ('Forum', 'forumstaff'),
     ('News', 'newsstaff'),
-    ('Online', 'online'),
+    ('Night Note', 'staff'),
     ('Photo', 'photostaff'),
     ('Scene', 'scenestaff'),
     ('Sports', 'sportsstaff')
