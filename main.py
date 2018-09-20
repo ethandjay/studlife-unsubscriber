@@ -7,6 +7,7 @@ import os
 app = Flask(__name__)
 
 sections = [
+    ('All', 'all'),
     ('Cadenza', 'cadenza-staff'),
     ('Copy', 'copystaff'),
     ('Design', 'design-staff'),
@@ -37,6 +38,20 @@ def submit():
         delegated_credentials = credentials.with_subject('ethan.jaynes@studlife.com')
     
         admin = googleapiclient.discovery.build('admin', 'directory_v1', credentials=delegated_credentials)
+
+        if section == 'all':
+            noneWorked = True
+            for tup in sections[1:]:
+                try:
+                    admin.members().delete(groupKey=f'{top[1]}@studlife.com', memberKey=f'{email}').execute()
+                except:
+                    # Do nothing
+                else:
+                    noneWorked = False
+                    alert = {'status':'success', 'message': f'{email} successfully unsubscribed from all sections'}
+            if noneWorked:
+                alert = {'status':'danger', 'message': f'Couldn\'t unsubscribe. Make sure you entered in your email correctly.'}                
+
 
         try:
             admin.members().delete(groupKey=f'{section}@studlife.com', memberKey=f'{email}').execute()
