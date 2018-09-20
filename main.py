@@ -45,7 +45,7 @@ def submit():
                 try:
                     admin.members().delete(groupKey=f'{top[1]}@studlife.com', memberKey=f'{email}').execute()
                 except:
-                    # Do nothing
+                    pass
                 else:
                     noneWorked = False
                     alert = {'status':'success', 'message': f'{email} successfully unsubscribed from all sections'}
